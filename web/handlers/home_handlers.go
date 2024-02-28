@@ -5,13 +5,16 @@ import (
 	"net/http"
 	"text/template"
 
+	"github.com/oddsteam/jongshirts/internal/db"
 	"github.com/oddsteam/jongshirts/internal/sessions"
+	"golang.org/x/vuln/client"
 )
 
 type ShirtPageData struct {
 	PageTitle string
 	ShirtList []ShirtList
 	Username  string
+	OrderTotal string
 }
 
 type ShirtList struct {
@@ -23,6 +26,7 @@ type ShirtList struct {
 }
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
+	client := db.NewClient()
 	// session, err := store.Get(r, "sessions")
 	session, err := sessions.NewSession(r)
 	if err != nil {
@@ -38,6 +42,15 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 	username := session.Values["username"].(string)
+	var cursor uint64=0 
+	orderTotal := "0"
+	keys , _, _ := client.Scan(cursor,"*",100).Result()
+
+	for key := range keys{
+		client.LLen(key)
+	}
+	fmt.Println()
+
 
 	data := ShirtPageData{
 		PageTitle: "Home page",
@@ -48,6 +61,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 			{Id: 4, Name: "shirt 4", Price: "77", Color: "Black", Size: "XXXL"},
 		},
 		Username: username,
+		OrderTotal: orderTotal,
 	}
 
 	tmpl.Execute(w, data)
