@@ -16,6 +16,16 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, nil)
 }
 
+func LogoutHandler(w http.ResponseWriter, r *http.Request) {
+	session, _ := sessions.NewSession(r)
+
+	for k := range session.Values {
+		delete(session.Values, k)
+	}
+	session.Save(r, w)
+	http.Redirect(w, r, "/login", http.StatusSeeOther)
+}
+
 func AuthenticationHandler(w http.ResponseWriter, r *http.Request) {
 	session, _ := sessions.NewSession(r)
 	// Authentication goes here
