@@ -26,6 +26,8 @@ func Start() {
 	)
 	r := mux.NewRouter()
 
+	r.PathPrefix("/assets/").Handler(handlers.AssetsHandler("web/assets", "/assets/"))
+
 	r.HandleFunc("/auth/{provider}", handlers.AuthHandler)
 	r.HandleFunc("/auth/{provider}/callback", handlers.CallbackHandler)
 	r.HandleFunc("/", handlers.HomeHandler)
@@ -34,5 +36,6 @@ func Start() {
 	r.HandleFunc("/login", handlers.LoginHandler)
 	r.HandleFunc("/logout", handlers.LogoutHandler)
 	r.HandleFunc("/auth", handlers.AuthenticationHandler)
+
 	http.ListenAndServe(":8080", r)
 }
