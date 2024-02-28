@@ -31,7 +31,7 @@ func Start() {
 	r.HandleFunc("/", handlers.HomeHandler)
 	r.HandleFunc("/cart", handlers.CartHandler).Methods("POST")
 	r.HandleFunc("/showcart", handlers.ShowCart)
-	// r.HandleFunc("/login", handlers.LoginHandler)
+	r.HandleFunc("/login", handlers.LoginHandler)
 	r.HandleFunc("/logout", handlers.LogoutHandler)
 	r.HandleFunc("/auth", handlers.AuthenticationHandler)
 	http.ListenAndServe(":8080", r)
