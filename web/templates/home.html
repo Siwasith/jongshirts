@@ -1,34 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="/assets/stylesheets/application.css">
+    <link rel="stylesheet" href="/assets/stylesheets/home.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{.PageTitle}}</title>
   </head>
   <body>
-    <p>user name : {{.Username}}</p>
-    <div><a href="/showcart">Your cart</a></div>
-    <div><a href="/logout">Logout</a></div>
-    <h1>{{.PageTitle}}</h1>
-    <h2> My order : {{.MyOrder}}</h2>
-    <h2> Total : {{.OrderTotal}}</h2>
-    <form action="/cart" method="post">
-      <ul>
-        {{range .ShirtList}}
-        <li>
-          <ul for="shirt-{{.Name}}">
-            <li>{{.Name}}</li>
-            <li>{{.Price}}</li>
-            <li>{{.Color}}</li>
-            <li>{{.Size}}</li>
-          </ul>
-          <!-- * select box -->
-          <input type="checkbox" name="{{.Name}}" />
-        </li>
-        {{end}}
-      </ul>
-      <input type="submit" />
-    </form>
+    <div class="navbar">
+      <div class="home">
+        <img
+          src="data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' aria-labelledby='title' aria-describedby='desc' role='img' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Ctitle%3EShopping Cart%3C/title%3E%3Cdesc%3EA solid styled icon from Orion Icon Library.%3C/desc%3E%3Ccircle data-name='layer1' cx='23.9' cy='56.3' r='4' fill='%23202020'%3E%3C/circle%3E%3Ccircle data-name='layer1' cx='49.9' cy='56.3' r='4' fill='%23202020'%3E%3C/circle%3E%3Cpath data-name='layer2' d='M23.4 48.3h31l7.7-24H19.7L15.9 7.8A2 2 0 0 0 14 6.3H3.9a2 2 0 0 0 0 4h8.4l9 38z' fill='%23202020'%3E%3C/path%3E%3Cpath data-name='layer1' fill='%23202020' d='M21.9 20.3H38l.1-.2-8-8-8.2 8.2zm28-8l2.2-5.6-7.4-3-6.6 16.4.1.2h8.4l1.5-3.7v3.7h12v-8H49.9z'%3E%3C/path%3E%3C/svg%3E"
+          alt="Shopping Cart"
+          width="10px"
+        />
+        <p>JongShirt</p>
+      </div>
+      <div class="navlink">
+        <a href="/">Home</a>
+        <a href="/showcart">Your cart</a>
+      </div>
+      <div class="user">
+        <p>{{.Username}}</p>
+        <a href="/logout">Logout</a>
+      </div>
+    </div>
+
+    <div class="content">
+      <h1>{{.PageTitle}}</h1>
+      <h2>My order : {{.MyOrder}}</h2>
+      <h2>Total : {{.OrderTotal}}</h2>
+      <form action="/cart" method="post">
+        <ul>
+          {{range .ShirtList}}
+          <li>
+            <ul for="shirt-{{.Name}}">
+              <li>{{.Name}}</li>
+              <li>{{.Price}}</li>
+              <li>{{.Color}}</li>
+              <li>{{.Size}}</li>
+            </ul>
+            <!-- * select box -->
+            <input type="checkbox" name="{{.Name}}" />
+          </li>
+          {{end}}
+        </ul>
+        <input type="submit" />
+      </form>
+    </div>
   </body>
 </html>

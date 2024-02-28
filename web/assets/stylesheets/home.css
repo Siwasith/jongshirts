@@ -1,0 +1,38 @@
+body {
+  margin: 0;
+  font-family: "Urbanist", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 10px;
+  background-color: lightblue;
+  height: 40px;
+  align-items: center;
+  margin: 0;
+  font-size: 20px;
+}
+
+p {
+  margin: 0;
+}
+
+.home,
+.navlink,
+.user {
+  display: flex;
+  flex-direction: row;
+  justify-self: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.content {
+  padding: 10px;
+}
