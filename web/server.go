@@ -6,29 +6,10 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/gorilla/sessions"
 	"github.com/oddsteam/jongshirts/internal/db"
+	"github.com/oddsteam/jongshirts/internal/sessions"
+	"github.com/oddsteam/jongshirts/web/handlers"
 )
-
-var (
-	// key must be 16, 24 or 32 bytes long (AES-128, AES-192 or AES-256)
-	key   = []byte("super-secret-key")
-	store = sessions.NewCookieStore(key)
-)
-
-type ShirtPageData struct {
-	PageTitle string
-	ShirtList []ShirtList
-	Username string
-}
-
-type ShirtList struct {
-	Id    int
-	Name  string
-	Size  string
-	Price string
-	Color string
-}
 
 type Incart struct {
 	Name []string
@@ -40,43 +21,12 @@ func Start() {
 	fmt.Println("Starting server")
 	r := mux.NewRouter()
 
-	r.HandleFunc("/", HomeHandler)
+	r.HandleFunc("/", handlers.HomeHandler)
 	r.HandleFunc("/cart", cartHandler).Methods("POST")
 	r.HandleFunc("/showcart", ShowCart)
 	r.HandleFunc("/login", loginHandler)
 	r.HandleFunc("/auth", authenticationHandler)
 	http.ListenAndServe(":8080", r)
-}
-
-func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	session, err := store.Get(r, "sessions")
-	if err != nil{
-		http.Redirect(w, r, "/login", http.StatusSeeOther)
-		return 
-	}
-	if session.Values["username"] == nil{
-		http.Redirect(w, r, "/login", http.StatusSeeOther)
-		return
-	}
-	tmpl, err := template.ParseFiles("web/templates/home.html")
-	if err != nil {
-		fmt.Println(err)
-	}
-	username:= session.Values["username"].(string)
-
-	data := ShirtPageData{
-		PageTitle: "Home page",
-		ShirtList: []ShirtList{
-			{Id: 1, Name: "shirt 1", Price: "100", Color: "Red", Size: "XL"},
-			{Id: 2, Name: "shirt 2", Price: "50", Color: "Green", Size: "L"},
-			{Id: 3, Name: "shirt 3", Price: "300", Color: "Blue-green", Size: "S"},
-			{Id: 4, Name: "shirt 4", Price: "77", Color: "Black", Size: "XXXL"},
-		},
-		Username: username,
-	}
-
-	tmpl.Execute(w, data)
-
 }
 
 func cartHandler(w http.ResponseWriter, r *http.Request) {
@@ -121,15 +71,14 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func authenticationHandler(w http.ResponseWriter, r *http.Request) {
-	session, _ := store.Get(r, "sessions")
+	session, _ := sessions.NewSession(r)
 	// Authentication goes here
 	// ...
-	email:=   r.FormValue("email")
+	email := r.FormValue("email")
 	// Set user as authenticated
 	session.Values["authenticated"] = true
 	session.Values["username"] = email
 	session.Save(r, w)
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 
-	
 }
