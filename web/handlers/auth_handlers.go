@@ -23,9 +23,11 @@ func CallbackHandler(w http.ResponseWriter, r *http.Request) {
 	// Authentication goes here
 	// ...
 	email := user.Email
+	userImage := user.AvatarURL
 	// Set user as authenticated
 	session.Values["authenticated"] = true
 	session.Values["username"] = email
+	session.Values["userImage"] = userImage
 	session.Save(r, w)
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }

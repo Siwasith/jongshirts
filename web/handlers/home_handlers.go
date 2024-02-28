@@ -15,6 +15,7 @@ type ShirtPageData struct {
 	Username  string
 	OrderTotal int
 	MyOrder int
+	UserImage string
 }
 
 type ShirtList struct {
@@ -33,7 +34,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
-	if session.Values["username"] == nil {
+	if session.Values["username"] == nil || session.Values["userImage"] == nil{
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
@@ -63,6 +64,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		Username: username,
 		OrderTotal: orderTotal,
 		MyOrder: myOrder,
+		UserImage: session.Values["userImage"].(string),
 	}
 
 	tmpl.Execute(w, data)
