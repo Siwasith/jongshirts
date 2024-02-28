@@ -16,20 +16,20 @@ type CartList struct {
 
 
 
-func CartHandler(w http.ResponseWriter, r *http.Request) {
-	client := db.NewClient()
-	session, _ := sessions.NewSession(r)
-	username := session.Values["username"]
-	// var SelectedShirts []string
+// func CartHandler(w http.ResponseWriter, r *http.Request) {
+// 	client := db.NewClient()
+// 	session, _ := sessions.NewSession(r)
+// 	username := session.Values["username"]
+// 	// var SelectedShirts []string
 
-	r.ParseForm()
-	// ctx := context.Background()
+// 	r.ParseForm()
+// 	// ctx := context.Background()
 
-	for key, _ := range r.Form {
-		client.LPush(username.(string), key)
-	}
-	http.Redirect(w, r, "/showcart", http.StatusSeeOther)
-}
+// 	for key, _ := range r.Form {
+// 		client.LPush(username.(string), key)
+// 	}
+// 	http.Redirect(w, r, "/showcart", http.StatusSeeOther)
+// }
 
 func ShowCart(w http.ResponseWriter, r *http.Request) {
 	client := db.NewClient()

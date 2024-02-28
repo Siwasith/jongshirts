@@ -29,7 +29,7 @@ func Start() {
 	r.HandleFunc("/auth/{provider}", handlers.AuthHandler)
 	r.HandleFunc("/auth/{provider}/callback", handlers.CallbackHandler)
 	r.HandleFunc("/", handlers.HomeHandler)
-	r.HandleFunc("/cart", handlers.CartHandler).Methods("POST")
+	// r.HandleFunc("/cart", handlers.CartHandler).Methods("POST")
 	r.HandleFunc("/showcart", handlers.ShowCart)
 	r.HandleFunc("/login", handlers.LoginHandler)
 	r.HandleFunc("/logout", handlers.LogoutHandler)
