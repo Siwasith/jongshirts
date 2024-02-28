@@ -1,20 +1,18 @@
 package handlers
 
 import (
-	"fmt"
 	"net/http"
-	"text/template"
 
 	"github.com/oddsteam/jongshirts/internal/sessions"
 )
 
-func LoginHandler(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := template.ParseFiles("web/templates/login.html")
-	if err != nil {
-		fmt.Println(err)
-	}
-	tmpl.Execute(w, nil)
-}
+// func LoginHandler(w http.ResponseWriter, r *http.Request) {
+// 	tmpl, err := template.ParseFiles("web/templates/login.html")
+// 	if err != nil {
+// 		fmt.Println(err)
+// 	}
+// 	tmpl.Execute(w, nil)
+// }
 
 func LogoutHandler(w http.ResponseWriter, r *http.Request) {
 	session, _ := sessions.NewSession(r)
