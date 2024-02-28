@@ -37,7 +37,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
-	tmpl, err := template.ParseFiles("web/templates/home.html")
+	tmpl, err := template.ParseFiles(templateDir + "/home.html")
 	if err != nil {
 		fmt.Println(err)
 	}
