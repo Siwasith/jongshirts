@@ -14,6 +14,7 @@ type ShirtPageData struct {
 	ShirtList []ShirtList
 	Username  string
 	OrderTotal int
+	MyOrder int
 }
 
 type ShirtList struct {
@@ -49,6 +50,8 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		orderTotal += int(client.LLen(value).Val())
 	}
 
+	myOrder := int(client.LLen(username).Val())
+
 	fmt.Println(orderTotal)
 
 
@@ -62,6 +65,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		},
 		Username: username,
 		OrderTotal: orderTotal,
+		MyOrder: myOrder,
 	}
 
 	tmpl.Execute(w, data)
