@@ -6,11 +6,11 @@
     <title>{{.PageTitle}}</title>
   </head>
   <body>
-    <p>user name {{.Username}}</p>
+    <p>user name : {{.Username}}</p>
     <div><a href="/showcart">Your cart</a></div>
     <div><a href="/logout">Logout</a></div>
     <h1>{{.PageTitle}}</h1>
-    <h2>{{.OrderTotal}}</h2>
+    <h2> Total : {{.OrderTotal}}</h2>
     <form action="/cart" method="post">
       <ul>
         {{range .ShirtList}}

@@ -7,14 +7,13 @@ import (
 
 	"github.com/oddsteam/jongshirts/internal/db"
 	"github.com/oddsteam/jongshirts/internal/sessions"
-	"golang.org/x/vuln/client"
 )
 
 type ShirtPageData struct {
 	PageTitle string
 	ShirtList []ShirtList
 	Username  string
-	OrderTotal string
+	OrderTotal int
 }
 
 type ShirtList struct {
@@ -43,13 +42,14 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	username := session.Values["username"].(string)
 	var cursor uint64=0 
-	orderTotal := "0"
-	keys , _, _ := client.Scan(cursor,"*",100).Result()
+	keys, _, _ := client.Scan(cursor,"*",100).Result()
 
-	for key := range keys{
-		client.LLen(key)
+	orderTotal := 0
+	for _, value := range keys{
+		orderTotal += int(client.LLen(value).Val())
 	}
-	fmt.Println()
+
+	fmt.Println(orderTotal)
 
 
 	data := ShirtPageData{
