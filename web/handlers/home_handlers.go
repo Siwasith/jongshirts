@@ -52,9 +52,6 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 
 	myOrder := int(client.LLen(username).Val())
 
-	fmt.Println(orderTotal)
-
-
 	data := ShirtPageData{
 		PageTitle: "Home page",
 		ShirtList: []ShirtList{
