@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/assets/stylesheets/login.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,8 +14,14 @@
   </head>
   <body>
     <div class="wrapper">
-      <div class="col-lg-4 col-md-6 mx-auto">
-        <a href="/auth/google">sign in with google</a>
+      <div class="login-block">
+        <div class="block-logo">
+            <h2>Jong Shirt</h2><div class="tang"></div> 
+        </div>
+        <button class="google-block">
+          <img src="/assets/icons/search.png" width="15px" height="15px" />
+          &nbsp;<a href="/auth/google">Sign in with Google</a>
+        </button>
       </div>
     </div>
   </body>
