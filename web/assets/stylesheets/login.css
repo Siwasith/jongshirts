@@ -1,10 +1,9 @@
 a{
     color:tomato;
     text-decoration:none;
-    font-family: "Urbanist", sans-serif;
 }
 
-h2{
+body{
     font-family: "Urbanist", sans-serif;
 }
 
@@ -16,7 +15,6 @@ h2{
 }
 
 .login-block{
-    font-family: 'Embed Code';
     display: flex;
     flex-direction: column;
     width: auto;
